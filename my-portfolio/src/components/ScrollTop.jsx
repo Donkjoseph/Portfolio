@@ -10,7 +10,7 @@ export const ScrollTop = () => {
       <Fab
         color="secondary"
         size="medium"
-        onClick={() => window.scrollTo(0, 0)}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         sx={{ position: 'fixed', bottom: 32, right: 32 }}
       >
         <KeyboardArrowUp />

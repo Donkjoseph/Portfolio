@@ -4,37 +4,41 @@ import { useSpring, animated } from 'react-spring';
 import { Link } from 'react-scroll';
 import backgroundVideo from '../assets/background1.mp4';
 
-
 const AnimatedBackground = () => {
+  // Fade and slide in the overlay text
   const props = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: 1 },
+    from: { opacity: 0, transform: 'translateY(20px)' },
+    to: { opacity: 1, transform: 'translateY(0)' },
     config: { tension: 220, friction: 120 },
   });
 
   // Scroll to the "home" section after 2 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
-      // Use react-scroll to scroll to the "home" section
       const homeSection = document.getElementById('home');
       if (homeSection) {
         homeSection.scrollIntoView({ behavior: 'smooth' });
       }
-    }, 2000); // 2 seconds delay
-
-    return () => clearTimeout(timer); // Cleanup the timer on unmount
+    }, 2000);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <Parallax
-      strength={200}
-      style={{ height: '100vh', position: 'relative' }} // Ensure the Parallax takes full viewport height
-    >
+    <Parallax strength={200} style={{ height: '100vh', position: 'relative' }}>
       {/* Video background */}
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: -1 }}>
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: -1,
+        }}
+      >
         <video
           style={{
-            objectFit: 'cover', // Ensures the video covers the whole background
+            objectFit: 'cover',
             width: '100%',
             height: '100%',
           }}
@@ -42,19 +46,31 @@ const AnimatedBackground = () => {
           loop
           muted
         >
-          <source
-            src={backgroundVideo} // Use the imported video file
-            type="video/mp4"
-          />
+          <source src={backgroundVideo} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
 
-      {/* Content overlay */}
-      <animated.div style={{ ...props, height: '100vh', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-          <h1 style={{ color: '#fff', fontSize: '4rem', textAlign: 'center' }}>Welcome to My Portfolio</h1>
-          <p style={{ color: '#fff', textAlign: 'center' }}>
+      {/* Animated overlay */}
+      <animated.div
+        style={{
+          ...props,
+          height: '100vh',
+          backgroundColor: 'rgba(80,75,56,0.5)',
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+          }}
+        >
+          <h1 style={{ color: '#504B38', fontSize: '4rem', textAlign: 'center' }}>
+            Welcome to My Portfolio
+          </h1>
+          <p style={{ color: '#504B38', textAlign: 'center' }}>
             Scroll down to explore more.
           </p>
         </div>
