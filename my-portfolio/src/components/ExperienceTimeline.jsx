@@ -74,18 +74,18 @@ const TimelineItem = ({ year, title, company, description }) => (
 export const ExperienceTimeline = () => {
   const experienceData = [
     {
-      year: '2021',
+      year: '2024',
       title: 'Python Developer',
-      company: 'Scottech, Toledo',
+      company: 'DataPy',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eiam eu turpis molestie, dictum et sit mattis felis. Sed dignissim mi eu fringilla ac massa. Duis consequat pellentesque nisl, euismod et felis. Nam sollicitudin lectus, sit amet elementum felis laoreet vitae. Maecenas egestas velit sit amet posuere tempor.',
+        'Developed and maintained Python-based solutions, collaborating with teams to implement efficient and innovative features.',
     },
     {
-      year: '2021',
-      title: 'Python Developer',
-      company: 'AutoGrid Systems, Naperville',
+      year: '2024 - 2025',
+      title: 'Full Stack Developer',
+      company: 'Comstream Technologies PVT',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adi nisl, euismod et felis. Nam sollicitudin lectus, sit amet elementum felis laoreet vitae. Maecenas egestas velit sit amet posuere tempor.',
+        'Delivered end-to-end web applications by integrating front-end and back-end technologies, ensuring high performance and seamless user experiences.',
     },
     // Add more experiences as needed
   ];

@@ -45,22 +45,24 @@ const HeroContent = () => (
       variant="h5"
       sx={{ mb: 4, color: '#504B38', fontWeight: 500 }}
     >
-      MCA Graduate | Seeking Employment in IT
+      MCA Graduate | Full Stack Developer
     </Typography>
     <Typography
       variant="h6"
       sx={{ mb: 4, color: '#504B38' }}
     >
-      As a student, I aim to leverage my skills and knowledge to contribute to
-      organizational success while embracing learning and growth.
+      Skilled in both front-end and back-end development, I design and implement seamless, scalable web solutions. Eager to leverage my expertise in modern frameworks and technologies, I’m currently open to new opportunities and collaborations.
     </Typography>
+    {/* Button with resume download functionality */}
     <Button
       variant="contained"
       color="secondary"
       size="large"
       aria-label="Explore My Portfolio"
+      href="/assets/Resume.pdf"  // Path to your resume file
+      download="Don_K_Joseph_Resume.pdf"  // Name of the downloaded file
     >
-      Explore My Portfolio
+      Download Portfolio
     </Button>
   </>
 );
@@ -92,6 +94,16 @@ export const Hero = () => {
           <Grid item xs={12} md={6}>
             <IllustrationBox>
               {/* Insert your profile illustration or image here */}
+              <img
+                src="logo_dkj.png"  // Path to your profile image
+                alt="Profile Illustration"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  borderRadius: 'inherit',
+                }}
+              />
             </IllustrationBox>
           </Grid>
         </Grid>
