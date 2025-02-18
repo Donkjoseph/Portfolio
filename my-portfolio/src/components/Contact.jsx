@@ -3,6 +3,7 @@ import { Grid, TextField, Button, Typography } from '@mui/material';
 import { useInView } from 'react-intersection-observer';
 import { Fade } from '@mui/material';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { styled } from '@mui/material/styles'; // Import styled utility
 
 // Styled Section Container
 const ContactSection = styled('section')(({ theme }) => ({
