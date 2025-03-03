@@ -1,10 +1,10 @@
+import React from 'react';
 import { Fab, Slide } from '@mui/material';
 import { KeyboardArrowUp } from '@mui/icons-material';
 import { useScrollTrigger } from '@mui/material';
 
 export const ScrollTop = () => {
   const trigger = useScrollTrigger({ disableHysteresis: true, threshold: 100 });
-
   return (
     <Slide in={trigger} direction="up">
       <Fab

@@ -4,10 +4,12 @@ import { darkTheme, lightTheme } from './theme/theme';
 import { Navbar, Hero, Projects, Skills, Contact, ScrollTop } from './components';
 import { ExperienceTimeline } from './components/ExperienceTimeline';
 import { LoadingScreen } from './components/LoadingScreen'; // Import the loading screen component
+import { SocialIcons } from './components/SocialIcons'; // Import SocialIcons component
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const [loadingProgress, setLoadingProgress] = useState(0); // Add loading progress state
 
   // Toggle between light and dark mode
   const toggleTheme = () => {
@@ -16,17 +18,45 @@ function App() {
     localStorage.setItem('theme', newTheme);
   };
 
-  // Simulate content loading
+  // Simulate content loading with progress updates
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       setIsDarkMode(savedTheme === 'dark');
     }
 
-    // Simulate loading (e.g., data fetching) for 2 seconds
-    setTimeout(() => {
-      setIsLoading(false); // Set loading to false after 2 seconds
-    }, 2000);
+    let progressInterval;
+    let loadTime = 2000; // Total loading time in ms
+    let steps = 20; // Number of progress updates
+    let stepTime = loadTime / steps;
+    
+    // Start at 0 and increment to simulate real loading
+    progressInterval = setInterval(() => {
+      setLoadingProgress(prevProgress => {
+        // Calculate next progress value
+        const nextProgress = prevProgress + (100 / steps);
+        
+        // If we're at or near 100%, clear interval and finish loading
+        if (nextProgress >= 99) {
+          clearInterval(progressInterval);
+          
+          // Small delay before finishing to show 100%
+          setTimeout(() => {
+            setLoadingProgress(100);
+            setIsLoading(false);
+          }, 200);
+          
+          return 99;
+        }
+        
+        return nextProgress;
+      });
+    }, stepTime);
+
+    // Cleanup interval if component unmounts
+    return () => {
+      if (progressInterval) clearInterval(progressInterval);
+    };
   }, []);
 
   return (
@@ -35,7 +65,7 @@ function App() {
       
       {/* Show the loading screen until isLoading is false */}
       {isLoading ? (
-        <LoadingScreen /> // Show loading screen while content is loading
+        <LoadingScreen initialProgress={loadingProgress} /> // Pass the progress value
       ) : (
         <>
           <Navbar toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
@@ -45,6 +75,7 @@ function App() {
           <Skills />
           <Contact />
           <ScrollTop />
+          <SocialIcons /> {/* Render the SocialIcons component */}
         </>
       )}
     </ThemeProvider>

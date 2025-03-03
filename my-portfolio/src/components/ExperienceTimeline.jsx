@@ -1,33 +1,29 @@
 import React from 'react';
-import { Grid, Typography, Box, Paper } from '@mui/material';
+import { Grid, Typography, Box, Paper, useTheme } from '@mui/material';
 import { useTrail, animated } from 'react-spring';
 import { styled } from '@mui/material/styles';
 
-// Section container with responsive padding and background
 const Section = styled('section')(({ theme }) => ({
   padding: theme.spacing(8, 2),
   background: theme.palette.background.paper,
 }));
 
-// Timeline container with relative positioning
 const TimelineContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
   paddingLeft: theme.spacing(4.5),
   paddingBottom: theme.spacing(4),
 }));
 
-// Vertical line connecting timeline dots
 const TimelineLine = styled(Box)(({ theme }) => ({
   position: 'absolute',
   left: theme.spacing(1.25),
   top: 0,
   bottom: 0,
   width: 2,
-  backgroundColor: '#B9B28A',
+  backgroundColor: theme.palette.mode === 'dark' ? '#ffffff' : '#000000',
   zIndex: -1,
 }));
 
-// Dot marker for each timeline item
 const DotMarker = styled(Box)(({ theme }) => ({
   position: 'absolute',
   left: 0,
@@ -35,41 +31,40 @@ const DotMarker = styled(Box)(({ theme }) => ({
   width: 20,
   height: 20,
   borderRadius: '50%',
-  backgroundColor: '#B9B28A',
-  border: `4px solid #504B38`,
+  backgroundColor: theme.palette.mode === 'dark' ? '#ffffff' : '#000000',
+  border: `4px solid ${theme.palette.mode === 'dark' ? '#C9C7BA' : '#9D1F15'}`,
 }));
 
-// Styled Paper for experience details
+// **Updated Background and Text Colors**
 const ExperiencePaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2.5),
-  background: 'rgba(185, 178, 138, 0.8)',
+  backgroundColor: theme.palette.mode === 'dark' ? '#C9C7BA' : '#9D1F15', // Background Color Change
   borderRadius: theme.shape.borderRadius,
+  color: theme.palette.mode === 'dark' ? '#29292B' : '#FBF7BA', // Text Color Change
 }));
 
-// Reusable TimelineItem component
-const TimelineItem = ({ year, title, company, description }) => (
-  <TimelineContainer>
-    <TimelineLine />
-    <DotMarker />
-    <ExperiencePaper elevation={3}>
-      <Typography
-        variant="h6"
-        sx={{ fontWeight: 600, color: '#504B38', mb: 1 }}
-      >
-        {title}
-      </Typography>
-      <Typography
-        variant="subtitle2"
-        sx={{ fontWeight: 500, color: '#EBE5C2', mb: 1 }}
-      >
-        {company} &bull; {year}
-      </Typography>
-      <Typography variant="body2" sx={{ color: '#504B38' }}>
-        {description}
-      </Typography>
-    </ExperiencePaper>
-  </TimelineContainer>
-);
+const TimelineItem = ({ year, title, company, description }) => {
+  const theme = useTheme();
+  const textColor = theme.palette.mode === 'dark' ? '#29292B' : '#FBF7BA'; // Updated text color
+
+  return (
+    <TimelineContainer>
+      <TimelineLine />
+      <DotMarker />
+      <ExperiencePaper elevation={3}>
+        <Typography variant="h6" sx={{ fontWeight: 600, color: textColor, mb: 1 }}>
+          {title}
+        </Typography>
+        <Typography variant="subtitle2" sx={{ fontWeight: 500, color: textColor, mb: 1 }}>
+          {company} &bull; {year}
+        </Typography>
+        <Typography variant="body2" sx={{ color: textColor }}>
+          {description}
+        </Typography>
+      </ExperiencePaper>
+    </TimelineContainer>
+  );
+};
 
 export const ExperienceTimeline = () => {
   const experienceData = [
@@ -87,7 +82,6 @@ export const ExperienceTimeline = () => {
       description:
         'Delivered end-to-end web applications by integrating front-end and back-end technologies, ensuring high performance and seamless user experiences.',
     },
-    // Add more experiences as needed
   ];
 
   const trail = useTrail(experienceData.length, {
@@ -99,17 +93,19 @@ export const ExperienceTimeline = () => {
   return (
     <Section id="experience">
       <Grid container spacing={4}>
-        {/* Header */}
         <Grid item xs={12}>
           <Typography
             variant="h3"
-            sx={{ mb: 4, fontWeight: 700, color: '#504B38', textAlign: 'center' }}
+            sx={{
+              mb: 4,
+              fontWeight: 700,
+              color: (theme) => (theme.palette.mode === 'dark' ? '#C9C7BA' : '#9D1F15'),
+              textAlign: 'center',
+            }}
           >
             Experience
           </Typography>
         </Grid>
-
-        {/* Timeline Items */}
         {experienceData.map((experience, index) => (
           <Grid item xs={12} key={index}>
             <animated.div style={trail[index]}>
