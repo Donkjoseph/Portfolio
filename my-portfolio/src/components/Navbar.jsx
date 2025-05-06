@@ -16,7 +16,7 @@ const NavLink = styled(ScrollLink)(({ theme }) => ({
   cursor: 'pointer',
   textDecoration: 'none',
   color: 'inherit',
-  fontWeight: 500,
+  fontWeight: 'bold',
   transition: 'all 0.3s ease',
   '&::after': {
     content: '""',
@@ -88,10 +88,20 @@ export const Navbar = ({ toggleTheme, isDarkMode }) => {
         </Typography>
 
         {!isMobile ? (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', fontWeight: 'bold'}}>
             {['home', 'projects', 'skills', 'contact'].map((link) => (
               <AnimatedWrapper key={link}>
                 <NavLink
+                sx={{
+                  fontSize: '1.0rem',
+                  fontWeight: 'bold', // Explicitly set bold weight for mobile
+                  '&::after': { display: 'none' },
+                  '&.active': { 
+                    borderBottom: '2px solid', 
+                    borderColor: isDarkMode ? '#C9C7BA' : '#9D1F15' 
+                  },
+                }}
+              
                   to={link}
                   smooth={true}
                   duration={500}
